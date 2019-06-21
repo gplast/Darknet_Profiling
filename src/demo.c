@@ -51,6 +51,7 @@ mat_cv* show_img;
 
 static volatile int flag_exit;
 static int letter_box = 0;
+static int test_limit = 200;
 
 void *fetch_in_thread(void *ptr)
 {
@@ -230,6 +231,10 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             free_detections(local_dets, local_nboxes);
 
             printf("\nFPS:%.1f\n", fps);
+            if (count == test_limit){
+                stop_timer_and_show_per_layer(0, test_limit);
+                flag_exit = 1;
+            }
 
             if(!prefix){
                 if (!dont_show) {

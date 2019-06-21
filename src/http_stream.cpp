@@ -520,6 +520,7 @@ void send_mjpeg(mat_cv* mat, int port, int timeout, int quality)
 
 static std::chrono::steady_clock::time_point steady_start, steady_end;
 static double total_time;
+static double time_per_layer[23];
 
 double get_time_point() {
     std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
@@ -543,7 +544,22 @@ double get_time() {
 
 void stop_timer_and_show() {
     stop_timer();
-    std::cout << " " << get_time() * 1000 << " msec" << std::endl;
+    std::cout << get_time() * 1000 << std::endl;
+    // std::cout << " " << get_time() * 1000 << " msec" << std::endl;
+}
+
+void stop_timer_and_show_per_layer(int i, int average) {
+    if (average == 0){
+        stop_timer();
+        time_per_layer[i] += get_time() * 1000;
+        //std::cout << time_per_layer[i] << std::endl;
+    }
+    else{
+        for(int j = 0; j < 22; j++){
+            std::cout << time_per_layer[j]/average << std::endl;
+        }
+    }
+    // std::cout << " " << get_time() * 1000 << " msec" << std::endl;
 }
 
 void stop_timer_and_show_name(char *name) {
@@ -564,6 +580,9 @@ void start_timer() {}
 void stop_timer() {}
 double get_time() { return 0; }
 void stop_timer_and_show() {
+    std::cout << " stop_timer_and_show() isn't implemented " << std::endl;
+}
+void stop_timer_and_show_per_layer(int i, int average) {
     std::cout << " stop_timer_and_show() isn't implemented " << std::endl;
 }
 void stop_timer_and_show_name(char *name) { stop_timer_and_show(); }

@@ -877,6 +877,7 @@ void start_timer();
 void stop_timer();
 double get_time();
 void stop_timer_and_show();
+void stop_timer_and_show_per_layer(int i, int average);
 void stop_timer_and_show_name(char *name);
 void show_total_time();
 

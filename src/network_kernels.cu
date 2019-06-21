@@ -54,11 +54,12 @@ void forward_network_gpu(network net, network_state state)
         if(l.delta_gpu && state.train){
             fill_ongpu(l.outputs * l.batch, 0, l.delta_gpu, 1);
         }
-        //printf("\n layer %d - type: %d - \n", i, l.type);
-        //start_timer();
+        // printf("\n layer %d - type: %d - ", i, l.type);
+        // printf("\n layer %d - type: %d - ", i, l.type);
+        start_timer();
         l.forward_gpu(l, state);
         //CHECK_CUDA(cudaDeviceSynchronize());
-        //stop_timer_and_show();
+        stop_timer_and_show_per_layer(i, 0);
 
         if(net.wait_stream)
             cudaStreamSynchronize(get_cuda_stream());
@@ -85,7 +86,7 @@ void forward_network_gpu(network net, network_state state)
     }
     //cudaStreamSynchronize(get_cuda_stream());   // sync CUDA-functions
     //cudaDeviceSynchronize();
-    //show_total_time();
+    // show_total_time();
 }
 
 void backward_network_gpu(network net, network_state state)
