@@ -5,7 +5,7 @@
 
 route_layer make_route_layer(int batch, int n, int *input_layers, int *input_sizes)
 {
-    fprintf(stderr,"route ");
+    // fprintf(stderr,"route ");
     route_layer l = { (LAYER_TYPE)0 };
     l.type = ROUTE;
     l.batch = batch;
@@ -15,10 +15,10 @@ route_layer make_route_layer(int batch, int n, int *input_layers, int *input_siz
     int i;
     int outputs = 0;
     for(i = 0; i < n; ++i){
-        fprintf(stderr," %d", input_layers[i]);
+        // fprintf(stderr," %d", input_layers[i]);
         outputs += input_sizes[i];
     }
-    fprintf(stderr, "\n");
+    fprintf(stderr, "0\n");
     l.outputs = outputs;
     l.inputs = outputs;
     l.delta = (float*)calloc(outputs * batch, sizeof(float));

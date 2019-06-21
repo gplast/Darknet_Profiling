@@ -219,7 +219,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             //printf("\033[2J");
             //printf("\033[1;1H");
             //printf("\nFPS:%.1f\n", fps);
-            printf("Objects:\n\n");
+            // printf("Objects:\n\n");
 
             ++frame_id;
             if (demo_json_port > 0) {
@@ -230,8 +230,9 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             draw_detections_cv_v3(show_img, local_dets, local_nboxes, demo_thresh, demo_names, demo_alphabet, demo_classes, demo_ext_output);
             free_detections(local_dets, local_nboxes);
 
-            printf("\nFPS:%.1f\n", fps);
+            // printf("\nFPS:%.1f\n", fps);
             if (count == test_limit){
+                printf("\nFPS:%.1f\n", fps);
                 stop_timer_and_show_per_layer(0, test_limit);
                 flag_exit = 1;
             }

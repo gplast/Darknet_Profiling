@@ -555,7 +555,7 @@ void stop_timer_and_show_per_layer(int i, int average) {
         //std::cout << time_per_layer[i] << std::endl;
     }
     else{
-        for(int j = 0; j < 22; j++){
+        for(int j = 0; j < 23; j++){
             std::cout << time_per_layer[j]/average << std::endl;
         }
     }
