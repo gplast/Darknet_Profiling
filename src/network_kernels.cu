@@ -41,10 +41,15 @@
 float * get_network_output_gpu_layer(network net, int i);
 float * get_network_delta_gpu_layer(network net, int i);
 float * get_network_output_gpu(network net);
-
+static double time_per_layer[23] = {0};
+int times_processed = 0;
 void forward_network_gpu(network net, network_state state)
 {
-    //cudaDeviceSynchronize();
+    cudaEvent_t start, stop;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    times_processed++;
+    // cudaDeviceSynchronize();
     //printf("\n");
     state.workspace = net.workspace;
     int i;
@@ -56,11 +61,16 @@ void forward_network_gpu(network net, network_state state)
         }
         // printf("\n layer %d - type: %d - ", i, l.type);
         // printf("\n layer %d - type: %d - ", i, l.type);
-        start_timer();
+        // start_timer();
+        cudaEventRecord(start);
+        // start_timer();
         l.forward_gpu(l, state);
-        //CHECK_CUDA(cudaDeviceSynchronize());
-        stop_timer_and_show_per_layer(i, 0);
-
+        cudaEventRecord(stop);
+        cudaEventSynchronize(stop);
+        // stop_timer_and_show_per_layer(i, 0);
+        float milliseconds = 0;
+        cudaEventElapsedTime(&milliseconds, start, stop);
+        time_per_layer[i] += milliseconds;
         if(net.wait_stream)
             cudaStreamSynchronize(get_cuda_stream());
         state.input = l.output_gpu;
@@ -83,6 +93,12 @@ void forward_network_gpu(network net, network_state state)
             cvDestroyAllWindows();
         }
 */
+    }
+    // int j = 0;
+    if(times_processed == 200){
+        for(int j = 0; j < 23; j++){
+                printf("%f\n",time_per_layer[j]/(float)times_processed);
+            }
     }
     //cudaStreamSynchronize(get_cuda_stream());   // sync CUDA-functions
     //cudaDeviceSynchronize();

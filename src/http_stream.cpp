@@ -520,7 +520,7 @@ void send_mjpeg(mat_cv* mat, int port, int timeout, int quality)
 
 static std::chrono::steady_clock::time_point steady_start, steady_end;
 static double total_time;
-static double time_per_layer[23];
+static double time_per_layer[23] = {0};
 
 double get_time_point() {
     std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
