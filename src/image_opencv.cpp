@@ -847,7 +847,7 @@ void save_cv_jpg(mat_cv *img_src, const char *name)
 }
 // ----------------------------------------
 
-
+int new_count = 0;
 // ====================================================================
 // Draw Detection
 // ====================================================================
@@ -855,10 +855,18 @@ void draw_detections_cv_v3(mat_cv* mat, detection *dets, int num, float thresh, 
 {
     try {
         cv::Mat *show_img = mat;
+        
+        
         int i, j;
         if (!show_img) return;
         static int frame_id = 0;
         frame_id++;
+
+        // std::string outfile = "new/";
+        // outfile.append(std::to_string(new_count));
+        // const char *cstr =outfile.c_str();
+        // save_cv_jpg(mat, cstr);
+        // new_count++;
 
         for (i = 0; i < num; ++i) {
             char labelstr[4096] = { 0 };

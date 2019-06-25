@@ -201,7 +201,11 @@ void forward_network(network *netp)
         if(l.delta){
             fill_cpu(l.outputs * l.batch, 0, l.delta, 1);
         }
+        start_timer();
+        // double time=what_time_is_it_now();
         l.forward(l, net);
+        stop_timer_and_show_per_layer(i, 0);
+        // printf("%d: Predicted in %f seconds.\n", l.type, what_time_is_it_now()-time);
         net.input = l.output;
         if(l.truth) {
             net.truth = l.output;

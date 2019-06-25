@@ -573,12 +573,19 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     char buff[256];
     char *input = buff;
     float nms=.45;
+    list *plist = get_paths("journal/test.txt");
+    char **paths = (char **)list_to_array(plist);
+    int m = plist->size;
+    int i=0;
 #ifdef NNPACK
 	nnp_initialize();
 	net->threadpool = pthreadpool_create(4);
 #endif
 
-    while(1){
+    // while(1){
+        
+    for(i = 0; i < m; ++i){
+        filename = paths[i];
         if(filename){
             strncpy(input, filename, 256);
         } else {
@@ -621,13 +628,13 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             save_image(im, "predictions");
 #ifdef OPENCV
             make_window("predictions", 512, 512, 0);
-            show_image(im, "predictions", 0);
+            show_image(im, "predictions", 1);
 #endif
         }
 
         free_image(im);
         free_image(sized);
-        if (filename) break;
+        // if (filename) break;
     }
 #ifdef NNPACK
 	pthreadpool_destroy(net->threadpool);
