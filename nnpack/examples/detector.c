@@ -584,7 +584,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
     // while(1){
         
-    for(i = 0; i < m; ++i){
+    for(i = 0; i <= m; ++i){
         filename = paths[i];
         if(filename){
             strncpy(input, filename, 256);
@@ -621,9 +621,9 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
         draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
         free_detections(dets, nboxes);
-
-        if (m == 199){
-                printf("\nFPS:%.1f\n", fps);
+        printf("%s\n",input);
+        if (i == 199){
+                // printf("\nFPS:%.1f\n", fps);
                 stop_timer_and_show_per_layer(0, 200);
             }
         if(outfile){
