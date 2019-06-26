@@ -18,7 +18,7 @@ route_layer make_route_layer(int batch, int n, int *input_layers, int *input_siz
         // fprintf(stderr," %d", input_layers[i]);
         outputs += input_sizes[i];
     }
-    fprintf(stderr, "0\n");
+    // fprintf(stderr, "0\n");
     l.outputs = outputs;
     l.inputs = outputs;
     l.delta = (float*)calloc(outputs * batch, sizeof(float));

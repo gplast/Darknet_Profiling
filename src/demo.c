@@ -118,7 +118,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
     demo_thresh = thresh;
     demo_ext_output = ext_output;
     demo_json_port = json_port;
-    printf("Demo\n");
+    // printf("Demo\n");
     net = parse_network_cfg_custom(cfgfile, 1, 1);    // set batch=1
     if(weightfile){
         load_weights(&net, weightfile);
@@ -128,7 +128,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
     srand(2222222);
 
     if(filename){
-        printf("video file: %s\n", filename);
+        // printf("video file: %s\n", filename);
         cap = get_capture_video_stream(filename);
     }else{
         printf("Webcam index: %d\n", cam_index);
@@ -232,8 +232,12 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
 
             // printf("\nFPS:%.1f\n", fps);
             if (count == test_limit){
-                printf("\nFPS:%.1f\n", fps);
-                stop_timer_and_show_per_layer(0, test_limit);
+                if (net.gpu_index == -1 ){
+                    stop_timer_and_show_per_layer(0, test_limit);
+                    // printf("========================================\n");
+                }
+                printf("\nInput Size: %d",net.w );
+                printf(" - FPS:%.1f\n\n", fps);
                 flag_exit = 1;
             }
 
@@ -297,7 +301,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             before = after;
         }
     }
-    printf("input video stream closed. \n");
+    // printf("input video stream closed. \n");
     if (output_video_writer) {
         release_video_writer(&output_video_writer);
         printf("output_video_writer closed. \n");

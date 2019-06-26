@@ -968,6 +968,7 @@ network parse_network_cfg_custom(char *filename, int batch, int time_steps)
     free_list(sections);
     net.outputs = get_network_output_size(net);
     net.output = get_network_output(net);
+    printf("========================================\n");
     fprintf(stderr, "Total BFLOPS %5.3f \n", bflops);
 #ifdef GPU
     get_cuda_stream();
@@ -1351,7 +1352,7 @@ void load_weights_upto(network *net, char *filename, int cutoff)
         cuda_set_device(net->gpu_index);
     }
 #endif
-    fprintf(stderr, "Loading weights from %s...", filename);
+    // fprintf(stderr, "Loading weights from %s...", filename);
     fflush(stdout);
     FILE *fp = fopen(filename, "rb");
     if(!fp) file_error(filename);
@@ -1363,13 +1364,13 @@ void load_weights_upto(network *net, char *filename, int cutoff)
     fread(&minor, sizeof(int), 1, fp);
     fread(&revision, sizeof(int), 1, fp);
     if ((major * 10 + minor) >= 2) {
-        printf("\n seen 64 \n");
+        // printf("\n seen 64 \n");
         uint64_t iseen = 0;
         fread(&iseen, sizeof(uint64_t), 1, fp);
         *net->seen = iseen;
     }
     else {
-        printf("\n seen 32 \n");
+        // printf("\n seen 32 \n");
         uint32_t iseen = 0;
         fread(&iseen, sizeof(uint32_t), 1, fp);
         *net->seen = iseen;
@@ -1444,7 +1445,7 @@ void load_weights_upto(network *net, char *filename, int cutoff)
 #endif
         }
     }
-    fprintf(stderr, "Done!\n");
+    fprintf(stderr, "\n");
     fclose(fp);
 }
 

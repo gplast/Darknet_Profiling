@@ -667,8 +667,8 @@ int is_avx() {
     if (result == -1) {
         check_cpu_features();
         result = HW_AVX;
-        if (result == 1) printf(" Used AVX \n");
-        else printf(" Not used AVX \n");
+        // if (result == 1) printf(" Used AVX \n");
+        // else printf(" Not used AVX \n");
     }
     return result;
 }
@@ -678,8 +678,8 @@ int is_fma_avx2() {
     if (result == -1) {
         check_cpu_features();
         result = HW_FMA3 && HW_AVX2;
-        if (result == 1) printf(" Used FMA & AVX2 \n");
-        else printf(" Not used FMA & AVX2 \n");
+        // if (result == 1) printf(" Used FMA & AVX2 \n");
+        // else printf(" Not used FMA & AVX2 \n");
     }
     return result;
 }

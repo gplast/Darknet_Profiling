@@ -757,7 +757,7 @@ image get_image_from_stream_resize(cap_cv *cap, int w, int h, int c, mat_cv** in
             src = get_capture_frame_cv(cap);
             if (!src) return make_empty_image(0, 0, 0);
         } while (src->cols < 1 || src->rows < 1 || src->channels() < 1);
-        printf("Video stream: %d x %d \n", src->cols, src->rows);
+        // printf("Video stream: %d x %d \n", src->cols, src->rows);
     }
     else
         src = get_capture_frame_cv(cap);
@@ -788,7 +788,7 @@ image get_image_from_stream_letterbox(cap_cv *cap, int w, int h, int c, mat_cv**
             src = get_capture_frame_cv(cap);
             if (!src) return make_empty_image(0, 0, 0);
         } while (src->cols < 1 || src->rows < 1 || src->channels() < 1);
-        printf("Video stream: %d x %d \n", src->cols, src->rows);
+        // printf("Video stream: %d x %d \n", src->cols, src->rows);
     }
     else
         src = get_capture_frame_cv(cap);
